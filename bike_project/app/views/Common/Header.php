@@ -15,44 +15,58 @@
     <title><?php echo SITE_NAME ?></title>
 </head>
 <body>
-  <header>
-  <nav>
-  <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/bike_project/Home" style="color:red;">home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/bike_project/About" style="color:red;">about</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/bike_project/Products" style="color:red;">Products</a>
-  </li>
+<header>
+ <div class="d-flex justify-content-start">
+    <ul class="nav nav-tabs">
+     <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="Home" style="color:red;">home</a>
+     </li>
+     <li class="nav-item">
+        <a class="nav-link" href="About" style="color:red;">about</a>
+     </li>
+     <li class="nav-item">
+        <a class="nav-link" href="Products" style="color:red;">Products</a>
+     </li>
 
-   <!-- show the login ,logout,register based on if global vairable -->
-   <nav>  
-   <ul class="nav nav-tabs nav justify-content-end">
-     <?php
-       // define instance from userValidation class to check the golbal vairable
-       $userValid = new userValidation;
-       if($userValid-> verfication())
-       {
+   <!-- show the login ,logout,register based on if global vairable --> 
+      <div class="d-flex justify-content-end"> 
+          <ul class="nav nav-tabs">
+            <?php
+              // define instance from userValidation class to check the golbal vairable
+              $userValid =new userValidation;
+              if($userValid->verfication())
+              {
 
-          echo '<li class="nav-item"><a style="color:red" class="nav-link active" aria-current="page" href="/bike_project/Logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>';
-       } 
-       else
-       {
-          echo '<li>
-                <a  style ="color:Red" class="nav-link active" aria-current="page" href="/bike_project/Login"><i class="fa-solid fa-right-to-bracket"></i>Login
-                </a></i>';
-          echo '<li>
-                <a  style ="color:Red" class="nav-link active" aria-current="page" href="/bike_project/Register"><i class="fa-solid fa-user-plus"></i>Register
-                </a>
-                </li>';
-       }
-   ?>
-      </ul>
-  </ul>
-</nav>
+                echo '<li class="nav-item">
+                        <a style="color:red" class="nav-link active" aria-current="page" href="/bike_project/Logout">
+                          <i class="fa-solid fa-right-from-bracket">
+                           </i>
+                            Logout
+                        </a>
+                      </li>';
+              } 
+              else
+              {
+                echo '<li>
+                      <a  style ="color:Red" class="nav-link active" aria-current="page" href="Login">
+                        <i class="fa-solid fa-right-to-bracket">
+                        </i>
+                          Login
+                      </a>
+                      </li>';
+                echo '<li>
+                        <a  style ="color:Red" class="nav-link active" aria-current="page" href="Register">
+                          <i class="fa-solid fa-user-plus">
+                          </i>
+                           Register
+                        </a>
+                      </li>';
+              } 
+              ?>
+          </ul>
+        </div>
+    </ul>
+  </div>
 </header>
     
 

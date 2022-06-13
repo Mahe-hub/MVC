@@ -21,7 +21,7 @@
           // close the session 
           session_write_close();
           // redirect to the login page and take parameter
-          header("Location: /bike_project/Login?redirect=about");
+          header("Location:".URL_ROOT."Login?redirect=about");
         }
   }
 }

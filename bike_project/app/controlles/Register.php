@@ -1,64 +1,62 @@
 <?php
-Class Register extends Controller{
-    public function __construct(){
-        //define instance to connect with DB
-        $this->usersModel = $this->model('usersModels');
-    }
+Class Register extends Controller
+{
+        public function __construct()
+        {
+            //define instance to connect with DB
+            $this->usersModel = $this->model('usersModels');
+        }
 
-    public function index(){
-        
-        // define instance form pModel class for connection 
-        $uservalid = new  userValidation(); 
-        $uservalid->startSession();
-        
-        // show the view 
-        $this->view('Users/create_user');
-    }
+        public function index()
+        {
+            
+            // define instance form pModel class for connection 
+            $uservalid = new  userValidation(); 
+            $uservalid->startSession();
+            
+            // show the view 
+            $this->view('Users/create_user');
+        }
 
     // if user click on register button 
-    private function registerUser()
-    {
-       
-        
-          if(isset($_POST['signup']))
-          {
-            // Define vairable save the input 
-            $userinfo = [
-                'u_fname'=>$_POST['inputFname'],
-                'u_lname'=>$_POST['inputLname'],
-                'u_dob'=>$_POST['inputDOB'],
-                'u_phone'=>$_POST['inputpnumber'],
-                'u_passwod'=> password_hash($_POST['inputPassword'],PASSWORD_DEFAULT),
-                'u_Email'=>$POST['inputEmail'],
-                'u_Addr'=>$POST['inputStreet'],
-                'u_City'=>$POST['inputCity'],
-                'u_Stat'=>$POST['inputState'],
-                'u_Zcode'=>$POST['inputZip'],
-                'u_Email'=>$POST['inputEmail'],
-                'u_country'=>$POST['inputCountry']
-                 
-            ];
-
-            // Get confirmation that user created 
-            $confirmationCustomer = $this->usersModel->CreateCustomer($userinfo);
-            $confirmationUser = $this->userModel->createUser($userinfo);
-            // if we reive true from model 
-              if ($confirmationCustomer &  $confirmationUser)
-              {
-                 header("Location: /bike_project/Login");
-              }
-              else
-              {
-                echo "something wrong happen try againg ";
-              }
-            }
-
-            // if we have false
-            else
+        public function registerUser()
+        {   
+            if(array_key_exists('signup',$_POST))
             {
-                $this->view('Users/create_user');
-            }  
-        }
+                // Define vairable save the input 
+                $userinfo = [
+                    'firstname'=>$_POST['firstname'],
+                    'lastname'=>$_POST['lastname'],
+                    'dateofbirth'=>$_POST['dateofbirth'],
+                    'phonenumber'=>$_POST['phonenumber'],
+                    'password'=> password_hash($_POST['password'],PASSWORD_DEFAULT),
+                    'email'=>$_POST['email'],
+                    'address'=>$_POST['address'],
+                    'city'=>$_POST['city'],
+                    'state'=>$_POST['state'],
+                    'zipcode'=>$_POST['zipcode'],
+                    'country'=>$_POST['country']
+                     ];
+
+                    // Get confirmation that user created 
+                    $confirmationUser = $this->usersModel->createUser($userinfo);
+                    $confirmationCustomer = $this->usersModel->createCustomer($userinfo);
+            
+                    // if we reive true from model 
+                    if ($confirmationCustomer & $confirmationUser)
+                    {
+                        header("Location:".URL_ROOT."/Login");
+                    }
+                    else
+                    {
+                        header("Location:".URL_ROOT."/Register");
+                    }
+                }
+                else
+                {
+                    header("Location:".URL_ROOT."/Register");
+                }  
+            }
     }
         
     

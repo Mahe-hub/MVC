@@ -1,12 +1,15 @@
 <?php
-Class Home extends Controller{
-    public function __construct(){
-      
-    }
+Class Home extends Controller
+{
+        public function __construct()
+        {
+        
+        }
 
-    public function index(){
-        $this->view('Home/home');
-    }
+        public function index()
+        {
+            $this->view('Home/home');
+        }
 
 
 
