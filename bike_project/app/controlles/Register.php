@@ -40,10 +40,9 @@ Class Register extends Controller
 
                     // Get confirmation that user created 
                     $confirmationUser = $this->usersModel->createUser($userinfo);
-                    $confirmationCustomer = $this->usersModel->createCustomer($userinfo);
             
                     // if we reive true from model 
-                    if ($confirmationCustomer & $confirmationUser)
+                    if ($confirmationUser)
                     {
                         header("Location:".URL_ROOT."/Login");
                     }

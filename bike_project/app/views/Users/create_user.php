@@ -4,7 +4,7 @@
     ?>
 
 <br>
-<section class="container">
+<section>
 
  <h1 class="fw-bold"> Create new user</h1>
    

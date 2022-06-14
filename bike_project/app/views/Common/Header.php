@@ -22,10 +22,13 @@
         <a class="nav-link active" aria-current="page" href="Home" style="color:red;">home</a>
      </li>
      <li class="nav-item">
-        <a class="nav-link" href="About" style="color:red;">about</a>
+        <a class="nav-link" href="About" style="color:red;">About</a>
      </li>
      <li class="nav-item">
         <a class="nav-link" href="Products" style="color:red;">Products</a>
+     </li>
+     <li class="nav-item">
+        <a class="nav-link" href="Orders" style="color:red;">Orders</a>
      </li>
    </ul>
    <!-- show the login ,logout,register based on if global vairable --> 

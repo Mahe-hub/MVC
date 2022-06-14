@@ -8,23 +8,50 @@ class usersModels{
             $this->db = new Models();   
       }
 
-      //users function 
-
-            
+      //users function       
       //create user
       public function createUser($data)
       {
-           
-
-
-            // prepare the statment 
-            $this->db->query("INSERT INTO  users (email,password)
-                              VALUES (:email,:password)");
+         // prepare the statment 
+            $this->db->query("INSERT INTO  users 
+                             (email,
+                              password,
+                              first_name,
+                              last_name,
+                              dateofbirth,
+                              phone_number,
+                              country,
+                              province,
+                              city,
+                              address,
+                              postal_code 
+                             )
+                              VALUES 
+                              (
+                                :email,
+                                :password,
+                                :firstname,
+                                :lastname,
+                                :dateofbirth,
+                                :phone,
+                                :country,
+                                :province,
+                                :city,
+                                :address,
+                                :postalcode
+                              )");
             //bind the parameters 
             $this->db->bind(":email",$data['email']);
-            $this->db->bind(":password",$data['password']);
-         
-            
+            $this->db->bind(":password",$data['password']); 
+            $this->db->bind(":firstname",$data['firstname']);
+            $this->db->bind(":lastname",$data['lastname']);
+            $this->db->bind(":dateofbirth",$data['dateofbirth']);
+            $this->db->bind(":phone",$data['phonenumber']);
+            $this->db->bind(":country",$data['country']);
+            $this->db->bind(":province",$data['state']);
+            $this->db->bind(":city",$data['city']); 
+            $this->db->bind(":address",$data['address']);
+            $this->db->bind(":postalcode",$data['zipcode']);
             // excute 
             if($this->db->execute())
             {
@@ -38,8 +65,6 @@ class usersModels{
        }
 
 
-
-
       //get all users 
       public function getallUsers()
       {
@@ -50,18 +75,16 @@ class usersModels{
         return $this->db->getAllData();
       }
 
-  
       // get single user by name 
-      public function getuserbyName($username)
+      public function getuserbyEmail($email)
       {
             // prepare the statment 
             $this->db->query("SELECT * FROM users WHERE email=:email");
             // bind the value 
-            $this->db->bind(":email",$username);
+            $this->db->bind(":email",$email);
             // get user info
             return $this->db->getSingleData();
       }
-
 
       // get the password of user 
       public function getPassword($username)
@@ -70,6 +93,49 @@ class usersModels{
             $this->db->bind(":email",$username);
             return $this->db->getSingleData();
       }
+
+
+
+    //update the exsist user info 
+     public function updateuserInfo($data){
+       $this->db->query(
+                        "UPDATE users 
+                         SET  first_name = :firstname,
+                              last_name = :lastname,
+                              dateofbirth = :dateofbirth,
+                              phone_number = :phonenumber,
+                              email = :email,
+                              password = :password,
+                              country = :country,
+                              province = :province,
+                              city = :city,
+                              address = :address,
+                              postal_code =:postalcode
+                            
+                              WHERE id =:id");
+        
+     // bind the parameters 
+       $this->db->bind(":firstname",$data['firstname']);
+       $this->db->bind(":lastname",$data['lastname']);
+       $this->db->bind(":dateofbirth",$data['dateofbirth']);
+       $this->db->bind(":phonenumber",$data['phonenumber']);
+       $this->db->bind(":email",$data['email']);
+       $this->db->bind(":password",$data['password']);
+       $this->db->bind(":country",$data['country']);
+       $this->db->bind(":province",$data['province']);
+       $this->db->bind(":city",$data['city']);
+       $this->db->bind(":address",$data['address']);
+       $this->db->bind(":postalcode",$data['postalcode']);
+
+    // excute
+       if($this->db->execute())
+           {
+             return true;
+           }
+      else {
+             return false;
+           }
+     }
 
       // delete user 
       public function delete($id)
@@ -85,72 +151,7 @@ class usersModels{
                        return false;
                    }
        }
-
-
-      //Customers functions
-      // create customer in the DB 
-      public function createCustomer($data)
-      {
-          // prepare the statment 
-        $this->db->query("INSERT INTO customers
-                          (first_name,
-                          last_name,
-                          date_of_birth,
-                          province,
-                          city,
-                          street,
-                          zipcode,
-                          country,
-                          phone_number) 
-                          VALUES
-                        (:firstname,
-                         :lastname,
-                         :dateofbirth,
-                         :province,
-                         :city,
-                         :street,
-                         :zipcode,
-                         :country,
-                         :phone)"
-                         );
-        //     bind the parameters 
-                $this->db->bind(":firstname",$data['firstname']);
-                $this->db->bind(":lastname",$data['lastname']);
-                $this->db->bind(":dateofbirth",$data['dateofbirth']);
-                $this->db->bind(":province",$data['state']);
-                $this->db->bind(":city",$data['city']); 
-                $this->db->bind(":street",$data['address']);
-                $this->db->bind(":zipcode",$data['zipcode']);
-                $this->db->bind(":country",$data['country']);
-                $this->db->bind(":phone",$data['phonenumber']);
-
-        // insert the customer_id into users table
-               
-              
-          // excute 
-                if($this->db->execute())
-                {
-                  //save the inserted user in array and return to model 
-                  $LastInsertcustomer =  true;
-                  return $LastInsertcustomer;
-                }
-              else
-                {
-                        return false;
-                }
-
-      }
-
-     public function showcustomerDetails($username)
-     {
-      //get customer
-      $this->db->query("SELECT * FROM  Where email = :email");
-      $this->db->bind(":email",$username);
-      $customerdetails =$this->db->getSingleData();
-     }
-
       
-
       //Products functions
       public function getProducts()
       {
@@ -159,7 +160,38 @@ class usersModels{
         return $this->db->getAllData();
 
       }
+
+      public function checkProduct($id)
+      {
+        $this->db->query("SELECT * FROM products WHERE id=:id");
+        $this->db->bind(":id",$id);
+        if($this->db->execute())
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+      }
+      
+      //Orders function 
+      public function add($data)
+      {
+        $this->db->query("INSERT INTO orders (user_email,product_id)
+                          VALUES (:email,:id");
+         $this->db->bind(":email",$data['email']);
+         $this->db->bind(":id",$$data['product_id']);
+         if($this->db->execute())
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
         
+      }
 
     // //update the exsist user info 
     // public function updateUser($data){

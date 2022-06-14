@@ -13,14 +13,14 @@ require  APP_ROOT."/views/Common/Header.php";
                         <div class='col-md-10'>
                             <div class='row p-2 bg-white border rounded'>
                                 <div class='col-md-3 mt-1'>
-                                 <img class='img-fluid img-responsive rounded product-image'>
                                   </div>
                                     <div class='col-md-6 mt-1'>
                                       <h5>".$product->brand
-                                        
                                         ."</h5>
                             
                                         <div class='mt-1 mb-1 spec-1'>
+        
+                                        
                                             <span class='dot'>
                                             </span>
                                             <span> 
@@ -51,11 +51,15 @@ require  APP_ROOT."/views/Common/Header.php";
                                                                  Price : ". $product->price."
                                                                 </h4>
                                                         </div>
-                                                     <h6 class='text-success'>Free shipping</h6>
-                                                        <div class='d-flex flex-column mt-4'>
-                                                            <a>
-                                                                Add to watch List
-                                                            </a>
+                                                            <h6 class='text-success'>
+                                                            Free shipping
+                                                            
+                                                            </h6>
+                                                            <div class='d-flex flex-column mt-4'>
+                                                            <a  href=Orders?productid='$product->id'>click</a>
+                                                            
+                                                             
+                                                            
                                                         </div>
                                                     </div>
                                      </div>

@@ -13,6 +13,7 @@ Class Home extends Controller
             $uservalid->startSession();
             if( $uservalid->verfication())
             {
+                
                 // call about view 
                 $this->view('Home/home');
             }

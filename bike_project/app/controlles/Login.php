@@ -59,7 +59,7 @@ class Login extends  Controller
                         }
                        else
                         {
-                          header ("location: ".URL_ROOT."Customers");
+                          header ("location: ".URL_ROOT."Home");
                         }
                      }
                      else
@@ -80,7 +80,7 @@ class Login extends  Controller
         private function userisExist($username)
         {
                 // define vairable to save the user info 
-                $user_Details = $this->usermodel->getuserbyName($username);
+                $user_Details = $this->usermodel->getuserbyEmail($username);
                 
                 // return true if email is exist 
                 return ( $user_Details);
@@ -111,11 +111,11 @@ class Login extends  Controller
                 if(isset($result["redirect"]))
                 {
 		                return $result["redirect"];
-		            }
+		        }
                 else 
                 {
 		 	             return "";
-		            }
+		        }
         }
 
    
