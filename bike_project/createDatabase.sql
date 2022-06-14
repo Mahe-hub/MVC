@@ -12,7 +12,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS  users;
 DROP TABLE IF EXISTS  customers ;
 DROP TABLE IF EXISTS  products;
-
+DROP TABLE IF EXISTS  Orders;                     
 
 -- create tables 
 
@@ -39,6 +39,7 @@ CREATE TABLE customers
   city     VARCHAR(30),
   street   VARCHAR(30),
   zipcode  VARCHAR(7),
+  country  VARCHAR(256),
   Phone_number VARCHAR(7),
 
 
@@ -51,12 +52,13 @@ CREATE TABLE products
 (
  id INT(5) not null  auto_increment,
  product_number VARCHAR(255),
- Price       Double(8,2),
+ brand        VARCHAR(256),
+ price       Double(8,2),
  Wheels      VARCHAR(255),
- Brakes      VARCHAR(255),
- category    INT(5),
+ brakes      VARCHAR(255),
+ category    VARCHAR(256),
 
-  CONSTRAINT Bikes_pk  PRIMARY KEY(id)
+  CONSTRAINT products_pk  PRIMARY KEY(id)
  
  );
 
@@ -73,6 +75,7 @@ CREATE TABLE Orders
   CONSTRAINT Order_fk2 FOREIGN KEY(product_id)REFERENCES products(id)
 
 );
+
 
 COMMIT;
 

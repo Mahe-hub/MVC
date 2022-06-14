@@ -8,7 +8,39 @@ class usersModels{
             $this->db = new Models();   
       }
 
+      //users function 
 
+            
+      //create user
+      public function createUser($data)
+      {
+           
+
+
+            // prepare the statment 
+            $this->db->query("INSERT INTO  users (email,password)
+                              VALUES (:email,:password)");
+            //bind the parameters 
+            $this->db->bind(":email",$data['email']);
+            $this->db->bind(":password",$data['password']);
+         
+            
+            // excute 
+            if($this->db->execute())
+            {
+              $LastInsertuser = true;
+              return $LastInsertuser;
+            }
+            else
+            {
+               return false;
+            }
+       }
+
+
+
+
+      //get all users 
       public function getallUsers()
       {
         // execute query as get all users
@@ -17,18 +49,8 @@ class usersModels{
         // get the result and return it to controller
         return $this->db->getAllData();
       }
-    
-    // // get single user
-    //  public function getcustomerId($dateofbirth){
-    //      // prepare the statment 
-    //       $this->db->query("SELECT Cust_id FROM customers WHERE Date_of_Birth=:dateofbirth");
-    //     //  bind the value 
-    //       $this->db->bind(":dateofbirth",$dateofbirth);
-    //     // get user info
-    //     return $this->db->getSingleData();
-    //  }
 
-
+  
       // get single user by name 
       public function getuserbyName($username)
       {
@@ -49,33 +71,24 @@ class usersModels{
             return $this->db->getSingleData();
       }
 
-
-
-
-      public function createUser($data)
+      // delete user 
+      public function delete($id)
       {
-      
-            // prepare the statment 
-            $this->db->query("INSERT INTO  users (email,password )
-                              VALUES (:email,:password)");
-            //bind the parameters 
-            $this->db->bind(":email",$data['email']);
-            $this->db->bind(":password",$data['password']);
-            
-            // excute 
-            if($this->db->execute())
-            {
-              $LastInsertuser = true;
-              return $LastInsertuser;
-            }
-            else
-            {
-               return false;
-            }
-      }
+                   $this->db->query("DELETE FROM users WHERE id = :id");
+                   $this->db->bind(":id",$id);
+                   if($this->db->execute())
+                   {
+                       return true;
+                   }
+                   else 
+                   {
+                       return false;
+                   }
+       }
 
 
-    // create user in the DB where data is from USER controler 
+      //Customers functions
+      // create customer in the DB 
       public function createCustomer($data)
       {
           // prepare the statment 
@@ -110,6 +123,9 @@ class usersModels{
                 $this->db->bind(":zipcode",$data['zipcode']);
                 $this->db->bind(":country",$data['country']);
                 $this->db->bind(":phone",$data['phonenumber']);
+
+        // insert the customer_id into users table
+               
               
           // excute 
                 if($this->db->execute())
@@ -125,8 +141,25 @@ class usersModels{
 
       }
 
+     public function showcustomerDetails($username)
+     {
+      //get customer
+      $this->db->query("SELECT * FROM  Where email = :email");
+      $this->db->bind(":email",$username);
+      $customerdetails =$this->db->getSingleData();
+     }
 
-     
+      
+
+      //Products functions
+      public function getProducts()
+      {
+
+        $this->db->query("SELECT * FROM products");
+        return $this->db->getAllData();
+
+      }
+        
 
     // //update the exsist user info 
     // public function updateUser($data){
@@ -148,18 +181,19 @@ class usersModels{
     // }
 
     // delete user 
-    public function delete($id){
-        $this->db->query("DELETE FROM users WHERE id = :id");
-        $this->db->bind(":id",$id);
-        if($this->db->execute()){
-            return true;
-        }
-        else {
-            return false;
-        }
+    // public function delete($id)
+    // {
+    //     $this->db->query("DELETE FROM users WHERE id = :id");
+    //     $this->db->bind(":id",$id);
+    //     if($this->db->execute()){
+    //         return true;
+    //     }
+    //     else {
+    //         return false;
+    //     }
+    
 
 
-    }
 
 
     

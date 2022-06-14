@@ -16,7 +16,7 @@
 </head>
 <body>
 <header>
- <div class="d-flex justify-content-start">
+ <nav class="d-flex justify-content-between">
     <ul class="nav nav-tabs">
      <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="Home" style="color:red;">home</a>
@@ -27,26 +27,25 @@
      <li class="nav-item">
         <a class="nav-link" href="Products" style="color:red;">Products</a>
      </li>
-
+   </ul>
    <!-- show the login ,logout,register based on if global vairable --> 
-      <div class="d-flex justify-content-end"> 
-          <ul class="nav nav-tabs">
-            <?php
-              // define instance from userValidation class to check the golbal vairable
-              $userValid =new userValidation;
-              if($userValid->verfication())
-              {
-
+   <ul class="nav nav-tabs">
+      <?php
+        // define instance from userValidation class to check the golbal vairable
+        $userValid =new userValidation();       
+          if($userValid->verfication())
+            {    
                 echo '<li class="nav-item">
-                        <a style="color:red" class="nav-link active" aria-current="page" href="/bike_project/Logout">
+                        <a style="color:red" class="nav-link active" aria-current="page" href="Logout">
                           <i class="fa-solid fa-right-from-bracket">
                            </i>
                             Logout
                         </a>
                       </li>';
-              } 
-              else
-              {
+            }
+          else
+            {
+               
                 echo '<li>
                       <a  style ="color:Red" class="nav-link active" aria-current="page" href="Login">
                         <i class="fa-solid fa-right-to-bracket">
@@ -61,13 +60,12 @@
                            Register
                         </a>
                       </li>';
-              } 
-              ?>
-          </ul>
-        </div>
+              }
+            ?>
     </ul>
-  </div>
+  </nav>
 </header>
+<body class="container">
     
 
  

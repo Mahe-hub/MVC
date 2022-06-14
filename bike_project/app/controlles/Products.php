@@ -6,31 +6,34 @@ class Products extends Controller
         {
             // define instance form pModel class for connection 
             $this->usersModel = $this->model('usersModels');
-            // define instance form pModel class for connection 
-            $uservalid = new  userValidation(); 
+            
+           
         
         }
 
 
         public function index()
         {
-        
-            // define instance form pModel class for connection 
             $uservalid = new  userValidation(); 
+            // define instance form pModel class for connection
             $uservalid->startSession();
             
                 if( $uservalid->verfication())
                 {
-                    $this ->view('Products/products_view');
+                    $data=['getproduct'=>$this->usersModel->getProducts()];
+                    $this ->view('Products/products_view',$data);
                 }
 
                 else
                 {
                     session_write_close();
-                    header("Location:".URL_ROOT."Login?redirect=users");
+                    header("Location:".URL_ROOT."Login?redirect=products");
                 }
         
         }
+
+    
+         
 
 
 }
