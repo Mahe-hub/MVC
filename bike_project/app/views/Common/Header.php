@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,9 +28,6 @@
      <li class="nav-item">
         <a class="nav-link" href="Products" style="color:red;">Products</a>
      </li>
-     <li class="nav-item">
-        <a class="nav-link" href="Orders" style="color:red;">Orders</a>
-     </li>
    </ul>
    <!-- show the login ,logout,register based on if global vairable --> 
    <ul class="nav nav-tabs">
@@ -37,14 +35,33 @@
         // define instance from userValidation class to check the golbal vairable
         $userValid =new userValidation();       
           if($userValid->verfication())
-            {    
-                echo '<li class="nav-item">
-                        <a style="color:red" class="nav-link active" aria-current="page" href="Logout">
-                          <i class="fa-solid fa-right-from-bracket">
-                           </i>
-                            Logout
-                        </a>
-                      </li>';
+            { 
+           
+                 echo '<li class="nav-item">
+                       <a style="color:red" class="nav-link active" aria-current="page" href="Orderdetails">
+                         <i class="fa-solid fa-info"></i>
+                         Details
+                       </a>
+                       </li>';
+
+                 echo '<div class="nav-item">
+                          <div class="row">
+                            <form   action="Search" method="GET">
+                              <div class="input-group mb-3">
+                                <input type="text" required name="search" class="form-control" placeholder="Search data" >
+                                <button style="color:red" class="input-group-text" id="basic-addon2" type="submit" ><i class="fa-solid fa-magnifying-glass"></i></span>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        ';      
+                 echo '<li class="nav-item">
+                      <a style="color:red" class="nav-link active" aria-current="page" href="Logout">
+                       <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                      </a>
+                      </li>';      
+
             }
           else
             {
@@ -62,7 +79,7 @@
                           </i>
                            Register
                         </a>
-                      </li>';
+                      </li>';   
               }
             ?>
     </ul>

@@ -70,7 +70,7 @@ private $stmt;
 
         }
       // now bind the value 
-      $this -> stmt->bindValue($param,$value,$type);  
+      $this->stmt->bindValue($param,$value,$type);  
   }
 
 

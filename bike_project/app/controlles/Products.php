@@ -14,22 +14,18 @@ class Products extends Controller
 
         public function index()
         {
-            $uservalid = new  userValidation(); 
+            $uservalid = new userValidation(); 
             // define instance form pModel class for connection
             $uservalid->startSession();
             
-                if( $uservalid->verfication())
-                {
-                    $data=['getproduct'=>$this->usersModel->getProducts()];
-                    $this ->view('Products/products_view',$data);
-                }
-
-                else
-                {
-                    session_write_close();
-                    header("Location:".URL_ROOT."Login?redirect=products");
-                }
-        
+            if( $uservalid->verfication())
+            {
+                $data=['getproduct'=>$this->usersModel->getProducts()];
+                $this->view('Products/products_view',$data);
+            }else{
+                session_write_close();
+                header("Location:".URL_ROOT."Login?redirect=products");
+            }
         }
 
     

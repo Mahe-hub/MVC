@@ -95,62 +95,6 @@ class usersModels{
       }
 
 
-
-    //update the exsist user info 
-     public function updateuserInfo($data){
-       $this->db->query(
-                        "UPDATE users 
-                         SET  first_name = :firstname,
-                              last_name = :lastname,
-                              dateofbirth = :dateofbirth,
-                              phone_number = :phonenumber,
-                              email = :email,
-                              password = :password,
-                              country = :country,
-                              province = :province,
-                              city = :city,
-                              address = :address,
-                              postal_code =:postalcode
-                            
-                              WHERE id =:id");
-        
-     // bind the parameters 
-       $this->db->bind(":firstname",$data['firstname']);
-       $this->db->bind(":lastname",$data['lastname']);
-       $this->db->bind(":dateofbirth",$data['dateofbirth']);
-       $this->db->bind(":phonenumber",$data['phonenumber']);
-       $this->db->bind(":email",$data['email']);
-       $this->db->bind(":password",$data['password']);
-       $this->db->bind(":country",$data['country']);
-       $this->db->bind(":province",$data['province']);
-       $this->db->bind(":city",$data['city']);
-       $this->db->bind(":address",$data['address']);
-       $this->db->bind(":postalcode",$data['postalcode']);
-
-    // excute
-       if($this->db->execute())
-           {
-             return true;
-           }
-      else {
-             return false;
-           }
-     }
-
-      // delete user 
-      public function delete($id)
-      {
-                   $this->db->query("DELETE FROM users WHERE id = :id");
-                   $this->db->bind(":id",$id);
-                   if($this->db->execute())
-                   {
-                       return true;
-                   }
-                   else 
-                   {
-                       return false;
-                   }
-       }
       
       //Products functions
       public function getProducts()
@@ -160,7 +104,8 @@ class usersModels{
         return $this->db->getAllData();
 
       }
-
+      
+      // check if product is exist 
       public function checkProduct($id)
       {
         $this->db->query("SELECT * FROM products WHERE id=:id");
@@ -174,55 +119,71 @@ class usersModels{
             return false;
         }
       }
+
+      //search product by brand&category
+      public function searchProduct($searchValue)
+      {
+        $this->db->query("SELECT *
+                          FROM products
+                          WHERE CONCAT(brand,category) LIKE '%$searchValue%'");
+        return $this->db->getAllData();
+      }
+
       
+
+      //get product by email
+      public function getProduct($email)
+      {
+        $this->db->query("SELECT *
+                          FROM orders
+                          WHERE user_email = :email");
+        $this->db->bind(":email",$email);
+
+        return $this->db->getSingleData();
+      }
+      //get product by id
+      public function getuserProduct($id)
+      {
+        $this->db->query("SELECT *
+                          FROM products 
+                          WHERE id = :id");
+        $this->db->bind(":id",$id);
+         
+        return $this->db->getSingleData();
+
+      }
       //Orders function 
+
+      //add order
       public function add($data)
       {
         $this->db->query("INSERT INTO orders (user_email,product_id)
-                          VALUES (:email,:id");
-         $this->db->bind(":email",$data['email']);
-         $this->db->bind(":id",$$data['product_id']);
-         if($this->db->execute())
-        {
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
-        
+                          VALUES (:email,:id)");
+        $this->db->bind(":email", $data['email']);
+        $this->db->bind(":id", $data['product_id']);
+
+         return $this->db->execute();        
       }
 
-    // //update the exsist user info 
-    // public function updateUser($data){
-    //     $this->db->query("UPDATE users SET name = :name,email =:email,phone = :phone WHERE id=:id");
+      //delete order
+      public function deleteOrd($id)
+      {
+        $this->db->query("DELETE FROM orders
+                          WHERE id=:id");
+        $this->db->bind(":id",$id);
+        return $this->db->execute();                  
+      }
+
+      // get all orders
+      public function getOrders($email)
+      {
+        $this->db->query("SELECT *
+                          FROM orders
+                          WHERE user_email=:email");
+        $this->db->bind(":email",$email);
         
-    //     // bind the parameters 
-    //     $this->db->bind(":name",$data['name']);
-    //     $this->db->bind(":email",$data['email']);
-    //     $this->db->bind(":phone",$data['phone']);
-    //     $this->db->bind(":id",$data['id']);
-
-    //     // excute
-    //     if($this->db->execute()){
-    //         return true;
-    //     }
-    //     else {
-    //         return false;
-    //     }
-    // }
-
-    // delete user 
-    // public function delete($id)
-    // {
-    //     $this->db->query("DELETE FROM users WHERE id = :id");
-    //     $this->db->bind(":id",$id);
-    //     if($this->db->execute()){
-    //         return true;
-    //     }
-    //     else {
-    //         return false;
-    //     }
+        return $this->db->getAllData();
+      }
     
 
 

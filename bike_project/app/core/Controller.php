@@ -10,7 +10,11 @@ Class Controller{
         }
     }
 
-    
+    public function viewwithtwoParameter($name, $firstParmeter=[],$secondParmeter=[]){
+        if(file_exists('../app/views/'.$name.'.php')){
+            require_once('../app/views/'.$name.'.php');
+        }
+    }
     // // this method check if model  exist
     public function model($modelname){
         // reuire the model 
